@@ -378,10 +378,22 @@ void joystickPressed() {
 
 // Functii Pompe
 void prepareDrink() {
+  int pumpDuration = 0;
+
+  // Setăm durata pompelor în funcție de dimensiunea selectată
+  if (sizeCursor == 1) {
+    pumpDuration = 2000;  // Cantitate mică: 2 secunde
+  } else if (sizeCursor == 2) {
+    pumpDuration = 4000;  // Cantitate medie: 4 secunde
+  } else if (sizeCursor == 3) {
+    pumpDuration = 6000;  // Cantitate mare: 6 secunde
+  }
+
+
   // Activarea primei pompe
   PORTD |= (1 << PORTD5);   // Setează PD5 (IN1 HIGH)
   PORTD &= ~(1 << PORTD6);  // Setează PD6 (IN2 LOW)
-  delay(5000);              // 5 secunde
+  delay(pumpDuration);              // 5 secunde
 
   // Oprirea primei pompe
   PORTD &= ~(1 << PORTD5);  // Setează PD5 (IN1 LOW)
@@ -391,7 +403,7 @@ void prepareDrink() {
   // Activarea celei de-a doua pompe
   PORTB |= (1 << PORTB3);   // Setează PB3 (IN3 HIGH)
   PORTB &= ~(1 << PORTB2);  // Setează PB2 (IN4 LOW)
-  delay(5000);              // 5 secunde
+  delay(pumpDuration);              // 5 secunde
 
   // Oprirea celei de-a doua pompe
   PORTB &= ~(1 << PORTB3);  // Setează PB3 (IN3 LOW)
